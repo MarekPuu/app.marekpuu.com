@@ -3,7 +3,7 @@ name: Docker build and push
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -24,4 +24,4 @@ jobs:
           context: .
           file: ./docker/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio_frontpage:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio_app:latest
