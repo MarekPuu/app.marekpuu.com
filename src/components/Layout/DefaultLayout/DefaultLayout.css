@@ -1,0 +1,34 @@
+.default_layout_container {
+  min-height: 100vh;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.default_layout_nav_container {
+  height: 80px;
+  background: var(--color-main);
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.default_layout_nav {
+  /* max-width: var(--page-max-width); */
+  width: 100%;
+  margin: auto;
+  padding: 0px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.default_layout_outlet {
+  flex: 1 0 auto;
+  max-width: 1440px;
+  width: 95%;
+  margin: auto;
+}
+.default_layout_footer {
+  height: 100px;
+}

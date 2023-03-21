@@ -1,0 +1,10 @@
+.talouspage_datatable_container:first-child {
+  margin-bottom: 50px;
+}
+.talouspage_datatable {
+  display: flex;
+  justify-content: center;
+}
+.talouspage_datatable:not(:first-child) {
+  margin-top: 30px;
+}
