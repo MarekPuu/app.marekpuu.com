@@ -7,25 +7,35 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 import TalouseMenu from './TalousMenu';
-
-const options = ['Marekin ja lauran talous', 'Marekin Talous', 'Joku talous'];
+import CreateTalousModal from '../../../Modals/CreateTalous';
+import useAxios from '../../../../api/axios';
+import { useQuery } from 'react-query';
+import { getMyHouseholds } from '../../../../api/services/talous';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ListItemButton } from '@mui/material';
 
 const LayoutMenu = () => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const [isOpenModal, setIsOpenModal] = React.useState(false);
   const [tab, setTab] = React.useState('0');
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
   const open = Boolean(anchorEl);
+  const axios = useAxios();
+
+  const { isLoading, error, data } = useQuery('myHouseholds', () =>
+    getMyHouseholds(axios)
+  );
+
+  const activeHousehold = data?.data?.find((h: any) => id === h.householdId);
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
     setTab('0');
     setAnchorEl(event.currentTarget);
   };
 
-  const handleMenuItemClick = (
-    event: React.MouseEvent<HTMLElement>,
-    index: number
-  ) => {
-    setSelectedIndex(index);
+  const handleMenuItemClick = (id: number) => {
+    navigate(`/talous/${id}`);
     setAnchorEl(null);
   };
 
@@ -36,6 +46,11 @@ const LayoutMenu = () => {
   const handleTabChange = (event: React.SyntheticEvent, newValue: string) => {
     setTab(newValue);
   };
+  const handleModalOpen = () => {
+    setIsOpenModal(true);
+    handleClose();
+  };
+
   return (
     <div>
       <List
@@ -51,34 +66,42 @@ const LayoutMenu = () => {
         component="div"
         aria-label="Talouden asetukset"
       >
-        <ListItem
-          id="lock-button"
-          aria-haspopup="listbox"
-          aria-controls="lock-menu"
-          aria-label="Taloudet"
-          aria-expanded={open ? 'true' : undefined}
+        <ListItemButton
           onClick={handleClickListItem}
+          disabled={!!!activeHousehold}
+          sx={{ height: '50px' }}
         >
-          <ListItemText primary={options[selectedIndex]} />
-          <ListItemIcon
-            sx={{
-              minWidth: 25,
-            }}
+          <ListItem
+            id="lock-button"
+            aria-haspopup="listbox"
+            aria-controls="lock-menu"
+            aria-label="Taloudet"
+            aria-expanded={open ? 'true' : undefined}
           >
-            <IoIosArrowDown size={25} color="white" />
-          </ListItemIcon>
-        </ListItem>
+            <ListItemText primary={activeHousehold?.householdName || ''} />
+
+            <ListItemIcon
+              sx={{
+                minWidth: 25,
+              }}
+            >
+              <IoIosArrowDown size={25} color="white" />
+            </ListItemIcon>
+          </ListItem>
+        </ListItemButton>
       </List>
       <TalouseMenu
+        activeHousehold={activeHousehold}
         open={open}
         anchorEl={anchorEl}
         handleClose={handleClose}
         tab={tab}
-        selectedIndex={selectedIndex}
         handleTabChange={handleTabChange}
-        options={options}
+        options={data?.data}
         handleMenuItemClick={handleMenuItemClick}
+        handleModalOpen={handleModalOpen}
       />
+      <CreateTalousModal open={isOpenModal} setOpen={setIsOpenModal} />
     </div>
   );
 };

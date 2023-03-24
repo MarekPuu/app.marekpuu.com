@@ -6,16 +6,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { IoIosArrowBack } from 'react-icons/io';
 
-interface INavTabsTaloudet {
-  options: string[];
-  selectedIndex: number;
-  handleMenuItemClick: Function;
-  handleTabChange: Function;
-}
-
 const NavTabsTaloudet = ({
   options,
-  selectedIndex,
+  activeHousehold,
   handleMenuItemClick,
   handleTabChange,
 }: INavTabsTaloudet) => {
@@ -43,13 +36,16 @@ const NavTabsTaloudet = ({
       </ListItem>
       <Divider />
       {options.map((option: any, index: number) => (
-        <div key={option}>
+        <div key={index}>
           <ListItemButton
-            disabled={index === selectedIndex}
-            selected={index === selectedIndex}
-            onClick={(event) => handleMenuItemClick(event, index)}
+            disabled={option.householdId == activeHousehold?.householdId}
+            selected={option.householdId == activeHousehold?.householdId}
+            onClick={(event) => handleMenuItemClick(option.householdId)}
           >
-            <ListItemText primary={option} className="MenuItemDefaultColor" />
+            <ListItemText
+              primary={option.householdName}
+              className="MenuItemDefaultColor"
+            />
           </ListItemButton>
           {index !== options.length - 1 ? <Divider /> : null}
         </div>
@@ -57,5 +53,12 @@ const NavTabsTaloudet = ({
     </Box>
   );
 };
+
+interface INavTabsTaloudet {
+  options: any;
+  activeHousehold: any;
+  handleMenuItemClick: Function;
+  handleTabChange: Function;
+}
 
 export default NavTabsTaloudet;

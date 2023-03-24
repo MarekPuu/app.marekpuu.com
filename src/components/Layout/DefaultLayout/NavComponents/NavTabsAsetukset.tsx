@@ -7,6 +7,7 @@ import {
   ListItemButton,
   Divider,
 } from '@mui/material';
+
 import { AiFillPlusSquare } from 'react-icons/ai';
 import { FiSettings } from 'react-icons/fi';
 import { IoMdSwap, IoIosArrowForward } from 'react-icons/io';
@@ -16,13 +17,13 @@ const options = ['Marekin ja lauran talous', 'Marekin Talous', 'Joku talous'];
 
 interface INavTavsAsetukset {
   handleTabChange: Function;
-  selectedIndex: number;
+  activeHousehold: any;
+  handleModalOpen: Function;
 }
 
-const NavTabsAsetukset = ({
-  handleTabChange,
-  selectedIndex,
-}: INavTavsAsetukset) => {
+const NavTabsAsetukset = (props: INavTavsAsetukset) => {
+  const { handleTabChange, activeHousehold, handleModalOpen } = props;
+
   return (
     <Box
       sx={{
@@ -37,7 +38,7 @@ const NavTabsAsetukset = ({
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemText
-                primary={options[selectedIndex]}
+                primary={activeHousehold?.householdName || ''}
                 className="MenuItemDefaultColor"
               />
             </ListItemButton>
@@ -65,7 +66,7 @@ const NavTabsAsetukset = ({
       <nav aria-label="secondary mailbox folders">
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleModalOpen()}>
               <ListItemIcon>
                 <AiFillPlusSquare size={20} />
               </ListItemIcon>

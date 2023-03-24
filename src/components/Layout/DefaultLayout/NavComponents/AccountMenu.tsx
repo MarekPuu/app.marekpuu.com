@@ -16,8 +16,6 @@ export default function AccountMenu() {
   const { logout, user } = useAuth0();
   const open = Boolean(anchorEl);
 
-  console.log(user);
-
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -30,31 +28,25 @@ export default function AccountMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title='Käyttäjän asetukset'>
+        <Tooltip title="Käyttäjän asetukset">
           <IconButton
             onClick={handleClick}
-            size='small'
+            size="small"
             sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup='true'
+            aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar
-              className='MenuItemSecondaryBg'
+              className="MenuItemSecondaryBg"
               sx={{ width: 50, height: 50 }}
-            >
-              {/* {`${user?.nickname
-                ?.split('.')[0][0]
-                .toUpperCase()}${user?.nickname
-                ?.split('.')[1][0]
-                .toUpperCase()}`} */}
-            </Avatar>
+            ></Avatar>
           </IconButton>
         </Tooltip>
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id='account-menu'
+        id="account-menu"
         open={open}
         onClose={() => handleClose(false)}
         PaperProps={{
@@ -81,17 +73,17 @@ export default function AccountMenu() {
           }}
         >
           <Avatar
-            className='MenuItemSecondaryBg'
+            className="MenuItemSecondaryBg"
             sx={{ width: '50px', height: '50px', margin: 'auto', ml: 1 }}
           >
-            MP
+            {`${user?.given_name?.[0]}${user?.family_name?.[0]}`}
           </Avatar>
           <List>
             <ListItemText
-              className='MenuItemDefaultColor'
+              className="MenuItemDefaultColor"
               sx={{ ml: 3, mr: 3 }}
               secondary={user?.email}
-              primary={user?.nickname}
+              primary={`${user?.given_name} ${user?.family_name}`}
             />
           </List>
         </Box>
