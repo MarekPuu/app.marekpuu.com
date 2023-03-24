@@ -5,26 +5,16 @@ import Menu from '@mui/material/Menu';
 import NavTabsAsetukset from './NavTabsAsetukset';
 import NavTabsTaloudet from './NavTabsTaloudet';
 
-interface IChoseTalousMenu {
-  anchorEl: null | HTMLElement;
-  open: boolean;
-  handleClose: Function;
-  tab: string;
-  selectedIndex: number;
-  handleTabChange: Function;
-  options: string[];
-  handleMenuItemClick: Function;
-}
-
 const ChoseTalousMenu = ({
   anchorEl,
   open,
   handleClose,
   tab,
-  selectedIndex,
   handleTabChange,
   options,
   handleMenuItemClick,
+  handleModalOpen,
+  activeHousehold,
 }: IChoseTalousMenu) => {
   return (
     <Menu
@@ -42,14 +32,15 @@ const ChoseTalousMenu = ({
       <TabContext value={tab}>
         <TabPanel sx={{ padding: 0 }} value="0">
           <NavTabsAsetukset
-            selectedIndex={selectedIndex}
+            activeHousehold={activeHousehold}
             handleTabChange={handleTabChange}
+            handleModalOpen={handleModalOpen}
           />
         </TabPanel>
         <TabPanel sx={{ padding: 0 }} value="1">
           <NavTabsTaloudet
+            activeHousehold={activeHousehold}
             options={options}
-            selectedIndex={selectedIndex}
             handleMenuItemClick={handleMenuItemClick}
             handleTabChange={handleTabChange}
           />
@@ -58,5 +49,17 @@ const ChoseTalousMenu = ({
     </Menu>
   );
 };
+
+interface IChoseTalousMenu {
+  anchorEl: null | HTMLElement;
+  open: boolean;
+  handleClose: Function;
+  tab: string;
+  handleTabChange: Function;
+  options: object[];
+  handleMenuItemClick: Function;
+  handleModalOpen: Function;
+  activeHousehold: object;
+}
 
 export default ChoseTalousMenu;
