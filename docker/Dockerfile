@@ -4,6 +4,8 @@ WORKDIR /app
 COPY package*.json .
 RUN npm install
 COPY . .
+ARG API_URL
+ENV VITE_APP_API_URL $API_URL
 RUN npm run build
 
 FROM nginx:alpine as production-stage
