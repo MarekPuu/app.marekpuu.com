@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
+/* * {
+  border: 1px solid black;
+} */
+
+body[data-theme="dark"]{
+  --color-main: #003049;
+  --color-secondary: #00496F;
+}
+
 :root {
   font-family: montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif !important;
   line-height: 1.5;
@@ -22,7 +31,16 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.colorGrey{
+  color: var(--color-text-grey) !important;
+}
 
+.borderMainColor {
+  border-color: var(--color-main) !important;
+}
+.mainColor {
+  color: var(--color-main) !important;
+}
 .MenuItemMainBg {
   background-color: var(--color-main) !important;
 }
@@ -41,7 +59,7 @@ h4,
 h5,
 h5 {
   /* color: var(--main-text-grey) !important; */
-  cursor: default;
+  cursor: default !important;
 }
 
 *,
@@ -51,14 +69,13 @@ h5 {
   padding: 0;
   box-sizing: border-box;
   font-family: inherit !important;
-  cursor: default;
-  /* border: 1px solid black; */
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-weight: 400;
+  color: var(--color-main);
   text-decoration: inherit;
+  cursor: pointer;
 }
 a:hover {
   color: #535bf2;
@@ -68,9 +85,17 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+path {
+  cursor: pointer;
+}
 button {
-  border-radius: 8px;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
@@ -78,15 +103,15 @@ button {
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s; */
 }
-button:hover {
-  border-color: #646cff;
-}
+
 button:focus,
 button:focus-visible {
   outline: none;
 }
+
+
 .not_found_page {
   display: flex;
   flex-direction: column;

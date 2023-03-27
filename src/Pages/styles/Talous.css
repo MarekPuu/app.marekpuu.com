@@ -6,8 +6,10 @@
 .talouspage_left_container {
   width: 50%;
   padding: 0 2%;
+  flex: 1 0 300px;
 }
 .talouspage_right_container {
   width: 50%;
   padding: 0 2%;
+  flex: 1 0 300px;
 }

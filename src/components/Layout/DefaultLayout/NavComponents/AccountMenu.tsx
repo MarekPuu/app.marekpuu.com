@@ -10,53 +10,56 @@ import { FaUser } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import { List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { logout, user } = useAuth0();
   const open = Boolean(anchorEl);
-
-  console.log(user);
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (wLogout: boolean) => {
+  const handleClose = () => {
     setAnchorEl(null);
-    if (wLogout) logout();
+  };
+
+  const openProfile = () => {
+    handleClose();
+    navigate('/profiili');
+  };
+
+  const logOut = () => {
+    handleClose();
+    logout();
   };
 
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip title='Käyttäjän asetukset'>
+        <Tooltip title="Käyttäjän asetukset">
           <IconButton
             onClick={handleClick}
-            size='small'
+            size="small"
             sx={{ ml: 2 }}
             aria-controls={open ? 'account-menu' : undefined}
-            aria-haspopup='true'
+            aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
           >
             <Avatar
-              className='MenuItemSecondaryBg'
+              className="MenuItemSecondaryBg"
               sx={{ width: 50, height: 50 }}
-            >
-              {/* {`${user?.nickname
-                ?.split('.')[0][0]
-                .toUpperCase()}${user?.nickname
-                ?.split('.')[1][0]
-                .toUpperCase()}`} */}
-            </Avatar>
+            ></Avatar>
           </IconButton>
         </Tooltip>
       </Box>
       <Menu
         anchorEl={anchorEl}
-        id='account-menu'
+        id="account-menu"
         open={open}
-        onClose={() => handleClose(false)}
+        onClose={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -81,24 +84,24 @@ export default function AccountMenu() {
           }}
         >
           <Avatar
-            className='MenuItemSecondaryBg'
+            className="MenuItemSecondaryBg"
             sx={{ width: '50px', height: '50px', margin: 'auto', ml: 1 }}
           >
-            MP
+            {`${user?.given_name?.[0]}${user?.family_name?.[0]}`}
           </Avatar>
           <List>
             <ListItemText
-              className='MenuItemDefaultColor'
+              className="MenuItemDefaultColor"
               sx={{ ml: 3, mr: 3 }}
               secondary={user?.email}
-              primary={user?.nickname}
+              primary={`${user?.given_name} ${user?.family_name}`}
             />
           </List>
         </Box>
         <Divider />
         <List>
           <ListItem sx={{ padding: '5px 0' }}>
-            <ListItemButton onClick={() => handleClose(false)}>
+            <ListItemButton onClick={openProfile}>
               <ListItemIcon>
                 <FaUser />
               </ListItemIcon>
@@ -107,7 +110,7 @@ export default function AccountMenu() {
           </ListItem>
           <Divider />
           <ListItem sx={{ padding: '5px 0 0 0' }}>
-            <ListItemButton onClick={() => handleClose(true)}>
+            <ListItemButton onClick={logOut}>
               <ListItemIcon>
                 <FiLogOut />
               </ListItemIcon>

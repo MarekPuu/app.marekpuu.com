@@ -1,0 +1,13 @@
+.householdsetting_container {
+  max-width: 1000px;
+  width: 90%;
+  margin: auto;
+  margin-top: min(15%, 50px);
+  margin-bottom: 50px;
+}
+
+.memberTabAddUserContainer {
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}

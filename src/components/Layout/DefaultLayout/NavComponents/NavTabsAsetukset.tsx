@@ -7,22 +7,40 @@ import {
   ListItemButton,
   Divider,
 } from '@mui/material';
+
 import { AiFillPlusSquare } from 'react-icons/ai';
 import { FiSettings } from 'react-icons/fi';
 import { IoMdSwap, IoIosArrowForward } from 'react-icons/io';
 import { MdGroupAdd } from 'react-icons/md';
-
-const options = ['Marekin ja lauran talous', 'Marekin Talous', 'Joku talous'];
+import { useNavigate } from 'react-router-dom';
 
 interface INavTavsAsetukset {
   handleTabChange: Function;
-  selectedIndex: number;
+  activeHousehold: any;
+  handleModalOpen: Function;
+  options: any;
+  handleClose: Function;
 }
 
-const NavTabsAsetukset = ({
-  handleTabChange,
-  selectedIndex,
-}: INavTavsAsetukset) => {
+const NavTabsAsetukset = (props: INavTavsAsetukset) => {
+  const { handleTabChange, activeHousehold, handleModalOpen } = props;
+  const { handleClose, options } = props;
+  const navigate = useNavigate();
+
+  const navigateToSettings = () => {
+    navigate(`/talous/${activeHousehold.householdId}/asetukset#general`);
+    handleClose();
+  };
+  const navigateToMembers = () => {
+    navigate(`/talous/${activeHousehold.householdId}/asetukset#members`);
+    handleClose();
+  };
+
+  const navigateToHousehold = (id: number) => {
+    navigate(`/talous/${id}`);
+    handleClose();
+  };
+
   return (
     <Box
       sx={{
@@ -35,16 +53,18 @@ const NavTabsAsetukset = ({
       <div aria-label="talouden hallinta">
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => navigateToHousehold(activeHousehold.householdId)}
+            >
               <ListItemText
-                primary={options[selectedIndex]}
+                primary={activeHousehold?.householdName || ''}
                 className="MenuItemDefaultColor"
               />
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton href="talous/13123/asetukset">
+            <ListItemButton onClick={navigateToSettings}>
               <ListItemIcon>
                 <FiSettings size={20} />
               </ListItemIcon>
@@ -52,7 +72,7 @@ const NavTabsAsetukset = ({
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={navigateToMembers}>
               <ListItemIcon>
                 <MdGroupAdd size={20} />
               </ListItemIcon>
@@ -65,7 +85,7 @@ const NavTabsAsetukset = ({
       <nav aria-label="secondary mailbox folders">
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={() => handleModalOpen()}>
               <ListItemIcon>
                 <AiFillPlusSquare size={20} />
               </ListItemIcon>

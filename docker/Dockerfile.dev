@@ -10,4 +10,8 @@ COPY . .
 
 EXPOSE 3001
 
+ARG API_URL
+
+ENV VITE_APP_API_URL $API_URL
+
 CMD [ "npm","run", "dev"]
