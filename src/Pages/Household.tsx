@@ -8,7 +8,7 @@ const Talous = () => {
     <SuspenseWithLoader>
       <div className="talouspage_page_container">
         <div className="talouspage_left_container">
-          <DataTableContainer />
+          {/* <DataTableContainer /> */}
         </div>
         <div className="talouspage_right_container">
           {/* <DataTableContainer /> */}
