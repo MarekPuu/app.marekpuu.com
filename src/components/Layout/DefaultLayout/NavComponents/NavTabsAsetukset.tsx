@@ -12,17 +12,34 @@ import { AiFillPlusSquare } from 'react-icons/ai';
 import { FiSettings } from 'react-icons/fi';
 import { IoMdSwap, IoIosArrowForward } from 'react-icons/io';
 import { MdGroupAdd } from 'react-icons/md';
-
-const options = ['Marekin ja lauran talous', 'Marekin Talous', 'Joku talous'];
+import { useNavigate } from 'react-router-dom';
 
 interface INavTavsAsetukset {
   handleTabChange: Function;
   activeHousehold: any;
   handleModalOpen: Function;
+  options: any;
+  handleClose: Function;
 }
 
 const NavTabsAsetukset = (props: INavTavsAsetukset) => {
   const { handleTabChange, activeHousehold, handleModalOpen } = props;
+  const { handleClose, options } = props;
+  const navigate = useNavigate();
+
+  const navigateToSettings = () => {
+    navigate(`/talous/${activeHousehold.householdId}/asetukset#general`);
+    handleClose();
+  };
+  const navigateToMembers = () => {
+    navigate(`/talous/${activeHousehold.householdId}/asetukset#members`);
+    handleClose();
+  };
+
+  const navigateToHousehold = (id: number) => {
+    navigate(`/talous/${id}`);
+    handleClose();
+  };
 
   return (
     <Box
@@ -36,7 +53,9 @@ const NavTabsAsetukset = (props: INavTavsAsetukset) => {
       <div aria-label="talouden hallinta">
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton
+              onClick={() => navigateToHousehold(activeHousehold.householdId)}
+            >
               <ListItemText
                 primary={activeHousehold?.householdName || ''}
                 className="MenuItemDefaultColor"
@@ -45,7 +64,7 @@ const NavTabsAsetukset = (props: INavTavsAsetukset) => {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton href="talous/13123/asetukset">
+            <ListItemButton onClick={navigateToSettings}>
               <ListItemIcon>
                 <FiSettings size={20} />
               </ListItemIcon>
@@ -53,7 +72,7 @@ const NavTabsAsetukset = (props: INavTavsAsetukset) => {
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton onClick={navigateToMembers}>
               <ListItemIcon>
                 <MdGroupAdd size={20} />
               </ListItemIcon>

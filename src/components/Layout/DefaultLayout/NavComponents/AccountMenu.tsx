@@ -10,19 +10,30 @@ import { FaUser } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import { List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { logout, user } = useAuth0();
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (wLogout: boolean) => {
+  const handleClose = () => {
     setAnchorEl(null);
-    if (wLogout) logout();
+  };
+
+  const openProfile = () => {
+    handleClose();
+    navigate('/profiili');
+  };
+
+  const logOut = () => {
+    handleClose();
+    logout();
   };
 
   return (
@@ -48,7 +59,7 @@ export default function AccountMenu() {
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
-        onClose={() => handleClose(false)}
+        onClose={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -90,7 +101,7 @@ export default function AccountMenu() {
         <Divider />
         <List>
           <ListItem sx={{ padding: '5px 0' }}>
-            <ListItemButton onClick={() => handleClose(false)}>
+            <ListItemButton onClick={openProfile}>
               <ListItemIcon>
                 <FaUser />
               </ListItemIcon>
@@ -99,7 +110,7 @@ export default function AccountMenu() {
           </ListItem>
           <Divider />
           <ListItem sx={{ padding: '5px 0 0 0' }}>
-            <ListItemButton onClick={() => handleClose(true)}>
+            <ListItemButton onClick={logOut}>
               <ListItemIcon>
                 <FiLogOut />
               </ListItemIcon>

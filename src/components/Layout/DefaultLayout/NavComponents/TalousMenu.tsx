@@ -15,6 +15,7 @@ const ChoseTalousMenu = ({
   handleMenuItemClick,
   handleModalOpen,
   activeHousehold,
+  showBackOption,
 }: IChoseTalousMenu) => {
   return (
     <Menu
@@ -32,6 +33,8 @@ const ChoseTalousMenu = ({
       <TabContext value={tab}>
         <TabPanel sx={{ padding: 0 }} value="0">
           <NavTabsAsetukset
+            options={options}
+            handleClose={handleClose}
             activeHousehold={activeHousehold}
             handleTabChange={handleTabChange}
             handleModalOpen={handleModalOpen}
@@ -39,6 +42,7 @@ const ChoseTalousMenu = ({
         </TabPanel>
         <TabPanel sx={{ padding: 0 }} value="1">
           <NavTabsTaloudet
+            showBackOption={showBackOption}
             activeHousehold={activeHousehold}
             options={options}
             handleMenuItemClick={handleMenuItemClick}
@@ -60,6 +64,7 @@ interface IChoseTalousMenu {
   handleMenuItemClick: Function;
   handleModalOpen: Function;
   activeHousehold: object;
+  showBackOption: boolean;
 }
 
 export default ChoseTalousMenu;

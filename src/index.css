@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
 
+/* * {
+  border: 1px solid black;
+} */
+
 body[data-theme="dark"]{
   --color-main: #003049;
   --color-secondary: #00496F;
@@ -27,7 +31,16 @@ body[data-theme="dark"]{
   -webkit-text-size-adjust: 100%;
 }
 
+.colorGrey{
+  color: var(--color-text-grey) !important;
+}
 
+.borderMainColor {
+  border-color: var(--color-main) !important;
+}
+.mainColor {
+  color: var(--color-main) !important;
+}
 .MenuItemMainBg {
   background-color: var(--color-main) !important;
 }
@@ -59,8 +72,8 @@ h5 {
 }
 
 a {
-  font-weight: 500;
-  color: #646cff;
+  font-weight: 400;
+  color: var(--color-main);
   text-decoration: inherit;
   cursor: pointer;
 }

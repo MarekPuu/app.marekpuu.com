@@ -18,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           authorizationParams={{
             redirect_uri: window.location.origin,
             audience: 'PortfolioApi',
+            scope: 'openid profile email',
           }}
         >
           <App />

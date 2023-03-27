@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IoIosArrowDown } from 'react-icons/io';
 
 import List from '@mui/material/List';
@@ -7,10 +7,10 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
 import TalouseMenu from './TalousMenu';
-import CreateTalousModal from '../../../Modals/CreateTalous';
-import useAxios from '../../../../api/axios';
+import CreateTalousModal from '../../../Modals/CreateHousehold';
+import { useAxios } from '../../../../api/axios';
 import { useQuery } from 'react-query';
-import { getMyHouseholds } from '../../../../api/services/talous';
+import { getMyHouseholds } from '../../../../api/services/household';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ListItemButton } from '@mui/material';
 
@@ -30,13 +30,14 @@ const LayoutMenu = () => {
   const activeHousehold = data?.data?.find((h: any) => id === h.householdId);
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
-    setTab('0');
     setAnchorEl(event.currentTarget);
+    setTab('0');
   };
 
   const handleMenuItemClick = (id: number) => {
-    navigate(`/talous/${id}`);
+    setTab('1');
     setAnchorEl(null);
+    navigate(`/talous/${id}`);
   };
 
   const handleClose = () => {
@@ -66,11 +67,7 @@ const LayoutMenu = () => {
         component="div"
         aria-label="Talouden asetukset"
       >
-        <ListItemButton
-          onClick={handleClickListItem}
-          disabled={!!!activeHousehold}
-          sx={{ height: '50px' }}
-        >
+        <ListItemButton onClick={handleClickListItem} sx={{ height: '50px' }}>
           <ListItem
             id="lock-button"
             aria-haspopup="listbox"
@@ -78,7 +75,9 @@ const LayoutMenu = () => {
             aria-label="Taloudet"
             aria-expanded={open ? 'true' : undefined}
           >
-            <ListItemText primary={activeHousehold?.householdName || ''} />
+            <ListItemText
+              primary={activeHousehold?.householdName || 'Valitse talous'}
+            />
 
             <ListItemIcon
               sx={{
@@ -95,7 +94,8 @@ const LayoutMenu = () => {
         open={open}
         anchorEl={anchorEl}
         handleClose={handleClose}
-        tab={tab}
+        tab={!id ? '1' : tab}
+        showBackOption={id ? true : false}
         handleTabChange={handleTabChange}
         options={data?.data}
         handleMenuItemClick={handleMenuItemClick}

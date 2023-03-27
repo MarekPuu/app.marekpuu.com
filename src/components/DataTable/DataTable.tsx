@@ -6,6 +6,7 @@ import './DataTable.css';
 import DataTableBody from './DataTableComponents/DataTableBody';
 import DataTableHead from './DataTableComponents/DataTableHead';
 import DataTableSkeleton from './DataTableComponents/DataTableSkeleton';
+import { TableContainer } from '@mui/material';
 
 const DataTable = (props: IDataTable) => {
   const { title, tableRows: rows = [], loading } = props;
@@ -13,7 +14,7 @@ const DataTable = (props: IDataTable) => {
 
   return (
     <div className="data_table_container">
-      <Paper sx={{ minHeight: '250px' }} elevation={3}>
+      <TableContainer component={Paper} sx={{ width: '100%' }} elevation={1}>
         <div className="data_table_title_container">
           <h1>{title}</h1>
         </div>
@@ -27,7 +28,7 @@ const DataTable = (props: IDataTable) => {
             ) : null}
           </Table>
         </div>
-      </Paper>
+      </TableContainer>
     </div>
   );
 };

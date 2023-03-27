@@ -7,10 +7,13 @@ import Footer from '../Footer/Footer';
 import { useAuth0 } from '@auth0/auth0-react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import SuspenseWithLoader from '../../Suspense/Suspense';
 import Loading from '../../LoadingSpinner/Loading';
 
 const DefaultLayout = () => {
   const { loginWithRedirect, isAuthenticated, user, isLoading } = useAuth0();
+
+  console.log(user);
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) loginWithRedirect();
@@ -27,7 +30,9 @@ const DefaultLayout = () => {
         )}
       </nav>
       <div className="default_layout_outlet">
-        {user ? <Outlet /> : <Loading />}
+        <SuspenseWithLoader>
+          {!user ? <Loading /> : <Outlet />}
+        </SuspenseWithLoader>
       </div>
       <div className="default_layout_footer">
         <Footer />

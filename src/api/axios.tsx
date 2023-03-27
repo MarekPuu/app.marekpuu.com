@@ -41,9 +41,9 @@ const useAxios = () => {
       instance.interceptors.request.eject(requestIntercept);
       instance.interceptors.response.eject(responseIntercept);
     };
-  }, [getAccessTokenSilently]);
+  }, []);
 
   return instance;
 };
 
-export default useAxios;
+export { useAxios };

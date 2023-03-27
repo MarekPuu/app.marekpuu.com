@@ -11,6 +11,7 @@ const NavTabsTaloudet = ({
   activeHousehold,
   handleMenuItemClick,
   handleTabChange,
+  showBackOption,
 }: INavTabsTaloudet) => {
   return (
     <Box
@@ -21,18 +22,20 @@ const NavTabsTaloudet = ({
       }}
     >
       <ListItem disablePadding>
-        <ListItemButton onClick={(event) => handleTabChange(event, '0')}>
-          <ListItemIcon
-            sx={{
-              minWidth: 20,
-              marginRight: 2,
-              width: 'fit-content',
-            }}
-          >
-            <IoIosArrowBack size={20} />
-          </ListItemIcon>
-          <ListItemText primary="Takaisin" />
-        </ListItemButton>
+        {showBackOption && (
+          <ListItemButton onClick={(event) => handleTabChange(event, '0')}>
+            <ListItemIcon
+              sx={{
+                minWidth: 20,
+                marginRight: 2,
+                width: 'fit-content',
+              }}
+            >
+              <IoIosArrowBack size={20} />
+            </ListItemIcon>
+            <ListItemText primary="Takaisin" />
+          </ListItemButton>
+        )}
       </ListItem>
       <Divider />
       {options.map((option: any, index: number) => (
@@ -59,6 +62,7 @@ interface INavTabsTaloudet {
   activeHousehold: any;
   handleMenuItemClick: Function;
   handleTabChange: Function;
+  showBackOption: boolean;
 }
 
 export default NavTabsTaloudet;

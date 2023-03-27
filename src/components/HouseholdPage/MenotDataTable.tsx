@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import useAxios from '../../api/axios';
+import { useAxios } from '../../api/axios';
 import { getMenot } from '../../api/services/menot';
 import DataTable from '../DataTable/DataTable';
 

@@ -1,30 +1,21 @@
-import React, { useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
-
-import { createTalous } from '../../api/services/talous';
-import useAxios from '../../api/axios';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import React, { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useAxios } from '../../api/axios';
+import { AddUser } from '../../api/services/householdUsers';
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  maxWidth: 400,
-  width: '90%',
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+const AddUserToHousehold = ({ setOpen, open }: IAddUserToHousehold) => {
+  const params = useParams();
+  const id = params?.id!;
 
-const CreateTalous = ({ open, setOpen }: ICreateTalous) => {
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
   const [haveError, setHaveError] = useState<boolean>(false);
@@ -32,22 +23,30 @@ const CreateTalous = ({ open, setOpen }: ICreateTalous) => {
 
   const handleClose = () => setOpen(false);
   const axios = useAxios();
+  const mutation = useMutation(AddUser);
+  const queryClient = useQueryClient();
 
   const handleCreating = async () => {
-    if (name.length === 0) {
+    if (email.length === 0) {
       setHaveError(true);
-      setErrorMessage('Nimi ei voi olla tyhjä');
+      setErrorMessage('Sähköposti ei voi olla tyhjä');
       return;
     }
+
     if (haveError || loading) return;
+
     setLoading(true);
-    const response = await createTalous(axios, name);
+    const response = await mutation.mutateAsync({ axios, email, id });
 
     if (response.status === 201) {
       handleClose();
-      toast.success('Talous luotu');
+      queryClient.invalidateQueries({
+        queryKey: ['household/', id, '/users'],
+      });
+      toast.success('Käyttäjä lisätty');
       return setLoading(false);
     }
+
     if (response.status === 400) {
       toast.error(response.data as string);
       return setLoading(false);
@@ -59,25 +58,21 @@ const CreateTalous = ({ open, setOpen }: ICreateTalous) => {
   };
 
   useEffect(() => {
-    setName('');
+    setEmail('');
     setErrorMessage(null);
+    setHaveError(false);
   }, [open]);
 
   useEffect(() => {
-    if (name.length > 30) {
-      setHaveError(true);
-      setErrorMessage('Talouden nimi voi olla maksimissaan 30 merkkiä');
-    } else {
-      setHaveError(false);
-    }
-  }, [name]);
+    if (haveError && email.length > 0) setHaveError(false);
+  }, [email]);
 
   return (
     <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="Luo talous modal"
-      aria-describedby="Luo uusi talous"
+      aria-labelledby="Lisää käyttäjä modal"
+      aria-describedby="Lisää käyttäjä"
     >
       <Box sx={style}>
         <Typography
@@ -89,17 +84,18 @@ const CreateTalous = ({ open, setOpen }: ICreateTalous) => {
             textAlign: 'center',
           }}
         >
-          Luo talous
+          Lisää käyttäjä
         </Typography>
         <Divider sx={{ width: '100%', margin: '5px 0 10px 0' }} />
-        <Typography component="p">Talouden nimi</Typography>
+        <Typography component="p">Käyttäjän sähköposti</Typography>
         <TextField
+          value={email}
           helperText={errorMessage}
           error={haveError}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           sx={{ width: '100%', marginBottom: '20px' }}
           hiddenLabel
-          id="filled-hidden-label-small"
+          id="email"
           size="small"
         />
         <Box
@@ -124,7 +120,7 @@ const CreateTalous = ({ open, setOpen }: ICreateTalous) => {
             className="MenuItemMainBg"
             variant="contained"
           >
-            Luo
+            Lisää
           </Button>
         </Box>
       </Box>
@@ -132,9 +128,22 @@ const CreateTalous = ({ open, setOpen }: ICreateTalous) => {
   );
 };
 
-interface ICreateTalous {
+interface IAddUserToHousehold {
   open: boolean;
   setOpen: Function;
 }
 
-export default CreateTalous;
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  maxWidth: 400,
+  width: '90%',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+export default AddUserToHousehold;

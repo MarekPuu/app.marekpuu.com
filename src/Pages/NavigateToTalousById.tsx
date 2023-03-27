@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { getMyHouseholds } from '../api/services/talous';
 import { Navigate } from 'react-router-dom';
 import Loading from '../components/LoadingSpinner/Loading';
-import CreateTalousModal from '../components/Modals/CreateTalous';
+import CreateTalousModal from '../components/Modals/CreateHousehold';
 import Button from '@mui/material/Button';
-import useAxios from '../api/axios';
+import { getMyHouseholds } from '../api/services/household';
+import { useAxios } from '../api/axios';
 
 const NavigateToTalousById = () => {
   const [isOpenModal, setIsOpenModal] = React.useState(false);
 
   const [haveError, setHaveError] = useState<boolean>(false);
-  const [errorMessage, setErrorMessage] = useState('asd');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const axios = useAxios();
 
