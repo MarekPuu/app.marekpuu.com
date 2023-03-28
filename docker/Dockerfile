@@ -4,8 +4,16 @@ WORKDIR /app
 COPY package*.json .
 RUN npm install
 COPY . .
+
 ARG API_URL
 ENV VITE_APP_API_URL $API_URL
+
+ARG AUTH0_DOMAIN
+ENV VITE_AUTH0_DOMAIN $AUTH0_DOMAIN
+
+ARG VITE_AUTH0_CLIENT_ID
+ENV VITE_AUTH0_CLIENT_ID $AUTH0_CLIENT_ID
+
 RUN npm run build
 
 FROM nginx:alpine as production-stage

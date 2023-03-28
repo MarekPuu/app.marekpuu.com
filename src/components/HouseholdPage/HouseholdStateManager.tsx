@@ -20,8 +20,6 @@ const HouseholdStateManager = () => {
 
   if (haveCurrentHousehold) return <Outlet />;
 
-  console.log(haveCurrentHousehold, data?.data);
-
   return <Navigate replace to={'/'} />;
 };
 
