@@ -13,7 +13,7 @@ Testikäyttäjän tunnukset: admin:testi
 
 Ominaisuudet
 ---
-- Kirjadu tai rekisteröidy
+- Kirjaudu tai rekisteröidy
 - Luo tai liity talouteen 
 - Sinulla voi olla usempi talous samaan aikaan
 - Anna taloudessa oleville rooleja tai poista taloudessa olevia jäseniä 
@@ -31,7 +31,7 @@ Teknologiat
 
 
 ## Projektin edistyminen
-- Nettisivun rakenne on ✔️
+- Nettisivun rakenne ✔️
 - Auth0 kirjautuminen ja rekisteröinti ✔️
 - Talouden luominen ✔️
 - Talouden vaihtaminen ✔️
