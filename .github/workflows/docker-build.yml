@@ -26,3 +26,6 @@ jobs:
           file: ./docker/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio_app:latest
+          build-args: |
+            AUTH0_CLIENT_ID=${{ secrets.AUTH0_CLIENT_ID }}
+            AUTH0_DOMAIN=${{ secrets.AUTH0_DOMAIN }}
