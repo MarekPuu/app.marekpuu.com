@@ -13,8 +13,8 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <Auth0Provider
-          domain="dev-4abyqjmhbtxaxgj0.us.auth0.com"
-          clientId="0ohH5dNZ4ipvYtcq6lDYMtksWrPDmMFg"
+          domain={import.meta.env.VITE_AUTH0_DOMAIN as string}
+          clientId={import.meta.env.VITE_AUTH0_CLIENT_ID as string}
           authorizationParams={{
             redirect_uri: window.location.origin,
             audience: 'PortfolioApi',
