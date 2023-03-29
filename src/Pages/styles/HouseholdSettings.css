@@ -11,3 +11,31 @@
   display: flex;
   justify-content: space-between;
 }
+.memberTabAddUserContainer p {
+  padding-right: 10px;
+}
+@media (max-width: 550px) {
+  .memberTabAddUserContainer {
+    flex-wrap: wrap;
+  }
+  .memberTabAddUserContainer button {
+    margin-top: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .fontSize-500 {
+    font-size: 1.75rem;
+  }
+  .memberTabAddUserContainer {
+    flex-wrap: wrap;
+  }
+  .width100-500 {
+    width: 100%;
+  }
+  .padding-500 {
+    padding: 15px 10px;
+  }
+  .marginTop10-500 {
+    margin-top: 10px;
+  }
+}

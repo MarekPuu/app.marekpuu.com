@@ -39,7 +39,7 @@ const HouseholdSettings = () => {
 
   return (
     <SuspenseWithLoader>
-      <div className="householdsetting_container">
+      <div className="householdsetting_container ">
         <Breadcrumbs sx={{ marginBottom: '50px' }} aria-label="breadcrumb">
           <Link to={`/talous/${id}`}>Talous</Link>
           <Typography color="text.primary">Asetukset</Typography>
@@ -47,7 +47,7 @@ const HouseholdSettings = () => {
         <TabContext value={value}>
           <Box sx={{ width: '100%' }}>
             <Typography
-              className="colorGrey"
+              className="fontSize-500 colorGrey"
               sx={{ marginBottom: 5, fontWeight: '500' }}
               variant="h4"
               component="h4"
@@ -64,10 +64,10 @@ const HouseholdSettings = () => {
               <Tab value="#general" label="Yleiset" />
               <Tab value="#members" label="Jäsenet" />
             </Tabs>
-            <TabPanel value="#general">
+            <TabPanel className="padding-500" value="#general">
               <GeneralTabPanel />
             </TabPanel>
-            <TabPanel value="#members">
+            <TabPanel className="padding-500" value="#members">
               <MembersTabPanel />
             </TabPanel>
           </Box>

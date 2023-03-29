@@ -29,7 +29,7 @@ const DeleteUserDialog = ({ setOpen, open, user }: IDeleteUser) => {
   const [loading, setLoading] = React.useState(false);
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen('');
   };
 
   const handleAccept = async () => {
@@ -62,7 +62,7 @@ const DeleteUserDialog = ({ setOpen, open, user }: IDeleteUser) => {
     <Dialog
       open={open}
       TransitionComponent={Transition}
-      onClose={handleClose}
+      // onClose={handleClose}
       aria-describedby="alert-dialog"
     >
       <DialogTitle>Haluatko varmasti poistaa käyttäjän</DialogTitle>

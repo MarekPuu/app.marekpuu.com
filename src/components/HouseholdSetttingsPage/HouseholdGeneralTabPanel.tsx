@@ -8,6 +8,7 @@ import { useAxios } from '../../api/axios';
 import { getMyHouseholds } from '../../api/services/household';
 import { Button, Tooltip } from '@mui/material';
 import DeleteHouseholdDialog from '../Dialog/DeleteHousehold';
+import '../../Pages/styles/HouseholdSettings.css';
 
 const HouseholdGeneralTabPanel = () => {
   const axios = useAxios();
@@ -42,11 +43,15 @@ const HouseholdGeneralTabPanel = () => {
       }}
     >
       <Box sx={styles}>
-        <Typography fontWeight={500}>Talouden nimi</Typography>
+        <Typography className="width100-500" fontWeight={500}>
+          Talouden nimi
+        </Typography>
         <Typography>{activeHousehold.householdName}</Typography>
       </Box>
       <Box sx={styles}>
-        <Typography fontWeight={500}>Talouden omistaja</Typography>
+        <Typography className="width100-500" fontWeight={500}>
+          Talouden omistaja
+        </Typography>
         <Typography>{activeHousehold.ownerName}</Typography>
       </Box>
       <Box sx={styles}>
@@ -61,8 +66,9 @@ const HouseholdGeneralTabPanel = () => {
         <Box sx={styles}>
           <Typography fontWeight={500}>Vaihda omistajaa</Typography>
           <Tooltip title="Ominaisuus tulossa">
-            <div>
+            <div className="width100-500 marginTop10-500">
               <Button
+                className="width100-500"
                 disabled={true}
                 sx={{
                   color: 'red',
@@ -83,8 +89,9 @@ const HouseholdGeneralTabPanel = () => {
         <Box sx={styles}>
           <Typography fontWeight={500}>Poista talous pysyvästi</Typography>
           <Tooltip title={canDeleteHousehold ? '' : 'Ei oikeuksia'}>
-            <div>
+            <div className="width100-500 marginTop10-500">
               <Button
+                className="width100-500"
                 onClick={() => setIsOpenDelete(true)}
                 disabled={!canDeleteHousehold}
                 sx={{
@@ -111,6 +118,7 @@ const HouseholdGeneralTabPanel = () => {
 
 const styles = {
   display: 'flex',
+  flexWrap: 'wrap',
   justifyContent: 'space-between',
   marginBottom: '20px',
 };
