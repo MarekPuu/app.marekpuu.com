@@ -42,6 +42,9 @@ const MembersTabPanelActions = ({ isAdmin, user }: IMembersTabPanelActions) => {
   const isDisabled = (): boolean => {
     return user.roleId === 1 || !isAdmin || user.userId === 3;
   };
+
+  console.log('dialog', dialog);
+
   return (
     <>
       <TableCell>
@@ -73,6 +76,7 @@ const MembersTabPanelActions = ({ isAdmin, user }: IMembersTabPanelActions) => {
                       <ListItemButton
                         disabled={isDisabled()}
                         onClick={() => setDialog(text)}
+                        onTouchStart={() => setDialog(text)}
                       >
                         <ClickAwayListener onClickAway={close}>
                           <ListItem disablePadding>

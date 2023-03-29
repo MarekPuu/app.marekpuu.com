@@ -36,7 +36,7 @@ const ChangeRoleDialog = ({ open, setOpen, user }: IChangeRole) => {
   const id = params?.id!;
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen('');
   };
 
   const handleAccept = async () => {
@@ -77,7 +77,7 @@ const ChangeRoleDialog = ({ open, setOpen, user }: IChangeRole) => {
     <Dialog
       open={open}
       TransitionComponent={Transition}
-      onClose={handleClose}
+      // onClose={handleClose}
       aria-describedby="alert-dialog"
     >
       <DialogContent>

@@ -16,7 +16,7 @@ import DataTableSkeleton from '../DataTable/DataTableComponents/DataTableSkeleto
 import { useAuth0 } from '@auth0/auth0-react';
 import { CanEditAdmin } from '../../utils/RoleHelper';
 import AddUserToHousehold from '../Modals/AddUserToHousehold';
-import DataTable from '../DataTable/DataTable';
+import '../../Pages/styles/HouseholdSettings.css';
 
 // css tulee pages/styles
 
@@ -42,8 +42,9 @@ const MembersTabPanel = () => {
             poista käyttäjiä taloudesta
           </p>
         </div>
-        <div>
+        <div className="width100-500">
           <Button
+            className="width100-500"
             onClick={() => setOpen(true)}
             disabled={!isAdmin}
             sx={{ minWidth: '200px' }}
@@ -82,7 +83,6 @@ const MembersTabPanel = () => {
           )}
         </Table>
       </TableContainer>
-
       <AddUserToHousehold open={open} setOpen={setOpen} />
     </>
   );
