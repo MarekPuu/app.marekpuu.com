@@ -18,6 +18,13 @@ export default function AccountMenu() {
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
 
+  const fullName = `${user?.given_name || 'Ei'} ${
+    user?.family_name || 'Nimeä'
+  }`;
+  const initials = `${user?.given_name?.charAt(0) || ''}${
+    user?.family_name?.charAt(0) || ''
+  }`;
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -87,14 +94,14 @@ export default function AccountMenu() {
             className="MenuItemSecondaryBg"
             sx={{ width: '50px', height: '50px', margin: 'auto', ml: 1 }}
           >
-            {`${user?.given_name?.[0]}${user?.family_name?.[0]}`}
+            {!!initials || user?.email?.[0].toUpperCase()}
           </Avatar>
           <List>
             <ListItemText
               className="MenuItemDefaultColor"
               sx={{ ml: 3, mr: 3 }}
               secondary={user?.email}
-              primary={`${user?.given_name} ${user?.family_name}`}
+              primary={fullName}
             />
           </List>
         </Box>

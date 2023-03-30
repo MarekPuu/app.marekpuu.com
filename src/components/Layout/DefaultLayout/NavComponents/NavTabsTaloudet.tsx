@@ -38,11 +38,11 @@ const NavTabsTaloudet = ({
         )}
       </ListItem>
       <Divider />
-      {options.map((option: any, index: number) => (
+      {options?.map((option: any, index: number) => (
         <div key={index}>
           <ListItemButton
-            disabled={option.householdId == activeHousehold?.householdId}
-            selected={option.householdId == activeHousehold?.householdId}
+            disabled={option.householdId === activeHousehold?.householdId}
+            selected={option.householdId === activeHousehold?.householdId}
             onClick={(event) => handleMenuItemClick(option.householdId)}
           >
             <ListItemText

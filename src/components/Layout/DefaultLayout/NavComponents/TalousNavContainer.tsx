@@ -28,8 +28,10 @@ const LayoutMenu = () => {
   );
 
   const activeHousehold = data?.data?.find((h: any) => id === h.householdId);
+  const canOpenMenu = data?.data === undefined || data?.data?.length > 0;
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
+    if (!canOpenMenu) return;
     setAnchorEl(event.currentTarget);
     setTab('0');
   };
@@ -69,19 +71,19 @@ const LayoutMenu = () => {
       >
         <ListItemButton onClick={handleClickListItem} sx={{ height: '50px' }}>
           <ListItem
+            sx={{ padding: '0' }}
             id="lock-button"
             aria-haspopup="listbox"
             aria-controls="lock-menu"
             aria-label="Taloudet"
             aria-expanded={open ? 'true' : undefined}
           >
-            <ListItemText
-              primary={activeHousehold?.householdName || 'Valitse talous'}
-            />
+            <ListItemText primary={activeHousehold?.householdName} />
 
             <ListItemIcon
               sx={{
                 minWidth: 25,
+                paddingLeft: '16px',
               }}
             >
               <IoIosArrowDown size={25} color="white" />

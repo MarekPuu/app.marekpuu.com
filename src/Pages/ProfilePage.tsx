@@ -8,7 +8,12 @@ import React from 'react';
 const ProfilePage = () => {
   const { user } = useAuth0();
 
-  const initials = `${user?.given_name?.[0]!}${user?.family_name?.[0]!}`;
+  const initials = `${user?.given_name?.charAt(0) || ''}${
+    user?.family_name?.charAt(0) || ''
+  }`;
+  const fullName = `${user?.given_name || 'Ei'} ${
+    user?.family_name || 'Nimeä'
+  }`;
 
   console.log(user);
 
@@ -48,7 +53,7 @@ const ProfilePage = () => {
           src="/static/images/avatar/1.jpg"
         >
           <Typography variant="h2" component="p" sx={{ color: 'white' }}>
-            {initials}
+            {!!initials || user?.email?.[0].toUpperCase()}
           </Typography>
         </Avatar>
         <Box sx={{ paddingTop: '100px', marginBottom: '50px' }}>
@@ -58,7 +63,7 @@ const ProfilePage = () => {
             component="p"
             sx={{ textAlign: 'center' }}
           >
-            {`${user?.given_name} ${user?.family_name}`}
+            {fullName}
           </Typography>
         </Box>
 
@@ -100,7 +105,7 @@ const ProfilePage = () => {
             <Typography textAlign="right" color="black" fontWeight={500}>
               Oletustalous
             </Typography>
-            <Typography textAlign="right">asdseweqwewqewqe </Typography>
+            <Typography textAlign="right">Minun talous</Typography>
           </Box>
         </Box>
       </Paper>
