@@ -1,11 +1,7 @@
 import React from 'react';
-import { useQuery } from 'react-query';
-import { useAxios } from '../../api/axios';
 import DataTable from '../DataTable/DataTable';
 
 const MenotDataTable = () => {
-  const axios = useAxios();
-
   return (
     <DataTable
       tableHead={['Päivämäärä', 'Otsikko', 'meno']}
