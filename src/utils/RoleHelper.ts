@@ -1,6 +1,6 @@
 const roles: IRoles[] = [
   {
-    roleName: 'Admin',
+    roleName: 'Ylläpitäjä',
     roleId: 2,
   },
   {
